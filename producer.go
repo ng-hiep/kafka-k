@@ -1,12 +1,15 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/confluentinc/confluent-kafka-go/kafka"
 )
 
 func main() {
 	p, err := kafka.NewProducer(&kafka.ConfigMap{
 		"bootstrap.servers": "localhost:9092"})
+
 	if err != nil {
 		panic(err)
 	}
@@ -14,10 +17,13 @@ func main() {
 	defer p.Close()
 
 	topic := "myTopic"
-	for _, word := range []string{"Hello", "Kafka", "from", "Golang"} {
+	for _, word := range []string{"Hello", "Kafka", "from", "Golang", "OK"} {
+		fmt.Println(word)
+
 		p.Produce(&kafka.Message{
-			TopicPartition: kafka.TopicPartition{Topic: &topic, Partition: kafka.PartitionAny},
-			Value:          []byte(word),
+			TopicPartition: kafka.TopicPartition{Topic: &topic,
+			Partition: kafka.PartitionAny},
+			Value: []byte(word),
 		}, nil)
 	}
 
