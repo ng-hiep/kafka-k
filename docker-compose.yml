@@ -1,0 +1,13 @@
+version: "3.9"
+
+services:
+  kafdrop:
+    image: obsidiandynamics/kafdrop:latest
+    ports:
+      - "9123:9123"
+    environment:
+      SERVER_PORT: 9123
+      MANAGEMENT_SERVER_PORT: 9123
+      KAFKA_BROKERCONNECT: kafka-broker-1:19091,kafka-broker-2:29092,kafka-broker-3:29093
+
+  
